@@ -24,3 +24,6 @@ class Materials:
         self.diffuse = m2.diffuse
         self.specular = m2.specular
         self.shininess = m2.shininess
+        
+    def __str__(self):
+        return "color: " + str(self.color) + " ambient: " + str(self.ambient)  + " diffuse: " + str(self.diffuse)  + " specular: " + str(self.specular)  + " shininess: " + str(self.shininess)

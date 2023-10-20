@@ -7,14 +7,14 @@ from rayTracer.tuples import Tuples
 def test_tuples_1(): 
     t1 = Tuples().Point(4.3, -4.2, 3.1)
     t2 = Tuples().Vector(4.3, -4.2, 3.1)
-    assert True == t1.isPoint()
-    assert True == t2.isVector()
+    assert t1.isPoint()
+    assert t2.isVector()
     
 def test_tuples_2(): 
     t1 = Tuples().Point(4.3, -4.2, 3.1)
     t2 = Tuples().Vector(4.3, -4.2, 3.1)
-    assert False == t1.isVector()
-    assert False == t2.isPoint()
+    assert not t1.isVector()
+    assert not t2.isPoint()
 
 def test_tuples_add(): 
     t1 = Tuples().Point(3, -2, 5)

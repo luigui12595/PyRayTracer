@@ -17,6 +17,7 @@ class Matrix:
         if self.rows != other.rows or self.cols != other.cols:
             return False
         for i in range(self.rows):
+            for j in range(self.cols):
             for j in range(self.cols):              
                 if not self.equals(self.mat[i][j], other.mat[i][j]):
                     return False

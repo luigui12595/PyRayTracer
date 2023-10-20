@@ -3,6 +3,8 @@ from .lights import Lights
 from .tuples import Tuples 
 from .colors import Colors 
 
+EPSILON = 0.0001
+
 class Computations:
 
     def __init__(self):
@@ -22,12 +24,14 @@ class Computations:
             comps.normalv = -comps.normalv
         else:
             comps.inside = False
+        comps.over_point = comps.point + comps.normalv * EPSILON
         return comps
 
 
     def shade_hit(self, w, comps):
+        shadowed = w.is_shadowed(comps.over_point)
         l = Lights()
-        return l.lighting(comps.object.material, w.light, comps.point, comps.eyev, comps.normalv)
+        return l.lighting(comps.object.material, w.light, comps.over_point, comps.eyev, comps.normalv, shadowed)
 
     def color_at(self, w, r):
         inter = Intersection()

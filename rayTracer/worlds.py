@@ -4,8 +4,10 @@ from .colors import Colors
 from .materials import Materials
 from .sphere import Sphere
 from .transformations import Transformations
+from .rays import Rays
+from .intersection import Intersection
 
-class Worlds:
+class World:
     def __init__(self):
         self.light = Lights()
         self.objects = []
@@ -32,3 +34,17 @@ class Worlds:
         self.objects.append(s1)
         self.objects.append(s2)
         return self
+    
+    def is_shadowed(self, point):
+        v = self.light.position - point
+        distance = v.magnitude()
+        direction = v.normalize()
+        r = Rays(point, direction)
+        intersections = Intersection().intersect_world(self, r)
+        h = Intersection().hit(intersections)
+        if h is not None and h.t < distance:
+            return True
+        else:
+            return False
+        
+        

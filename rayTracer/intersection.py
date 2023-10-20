@@ -2,7 +2,6 @@ import math
 from typing import List
 from .rays import Rays 
 from .tuples import Tuples
-from .worlds import Worlds
 
 class Intersection:
 
@@ -26,7 +25,7 @@ class Intersection:
             v.append(int2)
         return v
 
-    def intersect_world(self, w: Worlds, ray: Rays):
+    def intersect_world(self, w, ray):
         v = []
         for obj in w.objects:
             result = Intersection().intersect(obj, ray)

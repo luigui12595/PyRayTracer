@@ -62,3 +62,24 @@ class Transformations:
         shearing[2][0] = zx
         shearing[2][1] = zy
         return shearing
+    
+    @staticmethod
+    def view_transform(pfrom, to, up):
+        forward = (to - pfrom).normalize()
+        upn  = up.normalize()
+        left = forward.cross(upn)
+        true_up = left.cross(forward)
+        orientation = Matrix(4,4).identity()
+        orientation[0][0] = left.x
+        orientation[0][1] = left.y
+        orientation[0][2] = left.z
+        
+        orientation[1][0] = true_up.x
+        orientation[1][1] = true_up.y
+        orientation[1][2] = true_up.z
+        
+        orientation[2][0] = -forward.x
+        orientation[2][1] = -forward.y
+        orientation[2][2] = -forward.z
+        
+        return orientation * Transformations().translation(-pfrom.x, -pfrom.y, -pfrom.z)

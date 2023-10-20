@@ -13,8 +13,6 @@ def test_two_points_intersection_sphere():
     ray = Rays(origin, direction)
     sphere = Sphere()
     intersections = Intersection().intersect(sphere, ray)
-    print(str(intersections[0].t))
-    print(str(intersections[1].t))
     assert len(intersections) == 2
     assert intersections[0].t == 4.0
     assert intersections[1].t == 6.0

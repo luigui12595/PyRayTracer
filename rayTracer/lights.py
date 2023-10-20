@@ -12,20 +12,16 @@ class Lights:
         self.intensity = intensity
 
     def __eq__(self, l2):
-        print(l2)
         return self.position == l2.position and self.intensity == l2.intensity
 
     @staticmethod
-    def lighting(material, light, point, eyev, normalv):
+    def lighting(material, light, point, eyev, normalv, in_shadow = False):
         effectiveColor = material.color * light.intensity
         lightv = (light.position - point).normalize()
         ambient = effectiveColor * material.ambient
         lightDotNormal = lightv.dot(normalv)
         diffuse, specular = Colors(0, 0, 0), Colors(0, 0, 0)
-        if lightDotNormal < 0:
-            diffuse = Colors(0, 0, 0)
-            specular = Colors(0, 0, 0)
-        else:
+        if lightDotNormal >= 0 and not in_shadow:
             diffuse = effectiveColor * material.diffuse * lightDotNormal
             reflectv = (-lightv).reflect(normalv)
             reflectDotEye = reflectv.dot(eyev)
@@ -33,5 +29,6 @@ class Lights:
                 specular = Colors(0, 0, 0)
             else:
                 factor = reflectDotEye ** material.shininess
-                specular = light.intensity * material.specular * factor
-        return ambient + diffuse + specular
+                specular = light.intensity * material.specular * factor        
+            return ambient + diffuse + specular
+        return ambient

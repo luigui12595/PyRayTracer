@@ -1,4 +1,4 @@
-EPSILON = 0.00001
+EPSILON = 0.00003
 class Colors:
     
     r=g=b=0
